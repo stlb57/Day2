@@ -1,0 +1,19 @@
+name: genesis-check
+on: 
+  push:
+    branches:
+      - main
+      - feat/**
+    paths-ignore:
+      - '**/*.md'
+jobs: 
+  build:
+    name: sanity-check
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Initializing Project Genesis..."
+        shell: bash
+      - run: |
+          date
+          ls -la
+        shell: bash
