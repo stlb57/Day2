@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - feat/day-3-uplink
+
+jobs:
+  test:
+    name: network-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create docker network
+        run: docker network create genesis_net
+
+      - name: Run satellite (Nginx) in background
+        run: docker run -d --name satellite --network genesis_net -p 8080:80 nginx:alpine
+
+      - name: Test connectivity with curl
+        run: |
+          docker run --rm --network genesis_net curlimages/curl curl -s -f http://satellite

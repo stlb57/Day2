@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: station-pod
+spec:
+  containers:
+  - name: station
+    image: curlimages/curl
+    command: ["/bin/sh", "-c"]
+    args: ["curl -v http://satellite-svc; echo 'Done!'; sleep 3600"]
